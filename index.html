@@ -1,0 +1,1905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>👨‍⚕️ Health Care System - Dedicated Portals</title>
+  <!-- Favicon / Tab Icon (Doctor Sign) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='85'%3E👨‍⚕️%3C/text%3E%3C/svg%3E">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #f1f5f9;
+      color: #1e293b;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    
+    .login-overlay {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 90vh;
+      padding: 20px 10px;
+    }
+
+    .login-card {
+      background: white;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+      border: 1px solid #e2e8f0;
+      overflow: hidden;
+      animation: fadeInCard 0.35s ease-out;
+    }
+
+    @keyframes fadeInCard {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .login-header {
+      background: linear-gradient(135deg, #0284c7, #0369a1);
+      color: white;
+      padding: 28px 24px 22px;
+      text-align: center;
+    }
+
+    .login-brand-icon {
+      font-size: 40px;
+      margin-bottom: 8px;
+      display: inline-block;
+    }
+
+    .login-header h2 {
+      font-size: 23px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      letter-spacing: -0.3px;
+    }
+
+    .login-header p {
+      font-size: 13.5px;
+      opacity: 0.92;
+      line-height: 1.4;
+    }
+
+    .login-body {
+      padding: 26px 24px;
+    }
+
+    /* 2 Role Switcher Tabs (Only Patient & Volunteer) */
+    .role-switcher {
+      display: flex;
+      background: #f1f5f9;
+      border-radius: 10px;
+      padding: 5px;
+      margin-bottom: 22px;
+      gap: 6px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .role-btn {
+      flex: 1;
+      padding: 11px 10px;
+      border: none;
+      background: transparent;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #64748b;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .role-btn:hover {
+      color: #0f172a;
+    }
+
+    .role-btn.active {
+      background: white;
+      color: #0284c7;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    .login-form-pane {
+      display: none;
+      animation: fadeInPane 0.25s ease-in-out;
+    }
+
+    .login-form-pane.active {
+      display: block;
+    }
+
+    @keyframes fadeInPane {
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .login-form-group {
+      margin-bottom: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .login-form-group label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    .login-form-group input, 
+    .login-form-group select {
+      width: 100%;
+      padding: 11px 13px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .login-form-group input:focus, 
+    .login-form-group select:focus {
+      border-color: #0284c7;
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+    }
+
+    .btn-login-submit {
+      width: 100%;
+      padding: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      background-color: #0284c7;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 8px;
+      box-shadow: 0 4px 10px rgba(2, 132, 199, 0.25);
+    }
+
+    .btn-login-submit:hover {
+      background-color: #0369a1;
+      transform: translateY(-1px);
+    }
+
+    .btn-login-patient {
+      background-color: #0d9488;
+      box-shadow: 0 4px 10px rgba(13, 148, 136, 0.25);
+    }
+    .btn-login-patient:hover {
+      background-color: #0f766e;
+    }
+
+    .quick-demo-box {
+      margin-top: 20px;
+      padding-top: 18px;
+      border-top: 1px dashed #cbd5e1;
+      text-align: center;
+    }
+
+    .quick-demo-title {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #94a3b8;
+      margin-bottom: 8px;
+    }
+
+    .quick-demo-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      color: #475569;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 12.5px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+      width: 100%;
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .quick-demo-btn:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    /* ======================================================== */
+    /* 2. DASHBOARD MAIN WRAPPER                                */
+    /* ======================================================== */
+    #dashboardSection {
+      display: none; /* Initially hidden until login */
+    }
+
+    /* Dashboard Header */
+    header {
+      color: white;
+      padding: 22px 20px;
+      border-radius: 12px;
+      margin-bottom: 22px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      position: relative;
+    }
+
+    header.patient-header {
+      background: linear-gradient(135deg, #0d9488, #0f766e);
+    }
+
+    header.volunteer-header {
+      background: linear-gradient(135deg, #0284c7, #0369a1);
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 13px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .user-pill {
+      background: rgba(255, 255, 255, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13.5px;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-header {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      color: white;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .btn-header:hover {
+      background: rgba(255, 255, 255, 0.35);
+    }
+
+    .btn-logout {
+      background: #ef4444 !important;
+      border-color: #dc2626 !important;
+    }
+    .btn-logout:hover {
+      background: #dc2626 !important;
+    }
+
+    header h1 {
+      font-size: 25px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      letter-spacing: -0.4px;
+    }
+
+    header p {
+      font-size: 14px;
+      opacity: 0.92;
+      max-width: 650px;
+    }
+
+    /* Summary Bar */
+    .summary-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin-bottom: 25px;
+    }
+
+    .summary-box {
+      background: white;
+      padding: 16px;
+      text-align: center;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .summary-box:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+    }
+
+    .summary-box h3 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #0284c7;
+      margin-bottom: 4px;
+    }
+
+    .summary-box.alert-box h3 {
+      color: #dc2626;
+    }
+
+    .summary-box.success-box h3 {
+      color: #059669;
+    }
+
+    .summary-box.teal-box h3 {
+      color: #0d9488;
+    }
+
+    .summary-box p {
+      font-size: 13px;
+      font-weight: 600;
+      color: #64748b;
+    }
+
+    /* Section Cards */
+    .section-card {
+      background: white;
+      border-radius: 10px;
+      padding: 22px;
+      margin-bottom: 25px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+      border-top: 4px solid #0284c7;
+    }
+
+    .section-card.card-patient {
+      border-top-color: #0d9488;
+    }
+
+    .section-card.card-emergency {
+      border-top-color: #ef4444;
+      background: #fffdfd;
+    }
+
+    .section-card.card-shifts {
+      border-top-color: #6366f1;
+    }
+
+    .section-card.card-hours {
+      border-top-color: #f59e0b;
+    }
+
+    .section-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #f1f5f9;
+      padding-bottom: 12px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .section-header-row h2 {
+      font-size: 19px;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .info-tag {
+      font-size: 12px;
+      padding: 4px 10px;
+      background: #f0fdf4;
+      color: #166534;
+      border: 1px solid #bbf7d0;
+      border-radius: 6px;
+      font-weight: 500;
+    }
+
+    .section-guide {
+      font-size: 13.5px;
+      color: #64748b;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    /* Forms */
+    .simple-form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      margin-bottom: 20px;
+      align-items: end;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group.col-span-2 {
+      grid-column: span 2;
+    }
+
+    .form-group label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    input, select, textarea {
+      padding: 10px 12px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      background-color: #fff;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: #0284c7;
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+    }
+
+    /* Buttons */
+    .btn {
+      padding: 10px 18px;
+      background-color: #0284c7;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn:hover {
+      background-color: #0369a1;
+      transform: translateY(-1px);
+    }
+
+    .btn-teal {
+      background-color: #0d9488;
+    }
+    .btn-teal:hover {
+      background-color: #0f766e;
+    }
+
+    .btn-danger {
+      background-color: #ef4444;
+      padding: 6px 10px;
+      font-size: 12px;
+      border-radius: 4px;
+    }
+    .btn-danger:hover {
+      background-color: #dc2626;
+    }
+
+    .btn-status {
+      background-color: #10b981;
+      padding: 6px 10px;
+      font-size: 12px;
+      border-radius: 4px;
+    }
+    .btn-status:hover {
+      background-color: #059669;
+    }
+
+    .btn-assign {
+      background-color: #6366f1;
+      padding: 6px 10px;
+      font-size: 12px;
+      border-radius: 4px;
+    }
+    .btn-assign:hover {
+      background-color: #4f46e5;
+    }
+
+    /* Tables */
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      margin-top: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      min-width: 650px;
+    }
+
+    th, td {
+      padding: 12px 14px;
+      border-bottom: 1px solid #e2e8f0;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    th {
+      background-color: #f8fafc;
+      color: #475569;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 0.5px;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover {
+      background-color: #f8fafc;
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 9px;
+      border-radius: 12px;
+      font-size: 11.5px;
+      font-weight: 600;
+    }
+
+    .badge-green { background: #dcfce7; color: #15803d; }
+    .badge-blue { background: #e0f2fe; color: #0369a1; }
+    .badge-yellow { background: #fef3c7; color: #b45309; }
+    .badge-red { background: #fee2e2; color: #b91c1c; }
+    .badge-purple { background: #f3e8ff; color: #6b21a8; }
+    .badge-teal { background: #ccfbf1; color: #0f766e; }
+
+    .pulse {
+      animation: pulseAnimation 1.5s infinite;
+    }
+
+    @keyframes pulseAnimation {
+      0% { opacity: 1; }
+      50% { opacity: 0.6; }
+      100% { opacity: 1; }
+    }
+
+    .empty-msg {
+      text-align: center;
+      color: #94a3b8;
+      font-style: italic;
+      padding: 24px;
+    }
+
+    /* Floating Alert Toast */
+    .live-alert-toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #065f46;
+      color: white;
+      padding: 14px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 9999;
+      transform: translateY(-100px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .live-alert-toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .action-cell {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .assign-select {
+      padding: 5px 8px;
+      font-size: 12px;
+      max-width: 140px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Toast Notification -->
+  <div id="liveToast" class="live-alert-toast">
+    <span id="toastIcon">🔔</span>
+    <span id="toastMsg">Notification message</span>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 1. LOGIN INTERFACE (SHOWN FIRST ON OPENING THE FILE)      -->
+  <!-- ======================================================== -->
+  <div id="loginSection" class="login-overlay">
+    <div class="login-card">
+      <div class="login-header">
+        <div class="login-brand-icon">👨‍⚕️</div>
+        <h2>Healthcare Portal Sign In</h2>
+        <p>Please select your role to access your dedicated dashboard.</p>
+      </div>
+
+      <div class="login-body">
+        <!-- 2 Role Switcher Tabs Only: Patient & Volunteer -->
+        <div class="role-switcher">
+          <button type="button" class="role-btn active" id="roleBtnPatient" onclick="switchLoginRole('patient')">
+            🩺 Patient
+          </button>
+          <button type="button" class="role-btn" id="roleBtnVolunteer" onclick="switchLoginRole('volunteer')">
+            👨‍⚕️ Volunteer / Doctor
+          </button>
+        </div>
+
+        <!-- 1. PATIENT LOGIN FORM -->
+        <div id="loginPanePatient" class="login-form-pane active">
+          <form onsubmit="handlePatientLogin(event)">
+            <div class="login-form-group">
+              <label>Patient Full Name *</label>
+              <input type="text" id="loginPatientName" placeholder="e.g. Ramesh Kumar" required>
+            </div>
+            <div class="login-form-group">
+              <label>Phone Number *</label>
+              <input type="tel" id="loginPatientPhone" placeholder="e.g. 9876543210" required>
+            </div>
+            <div class="login-form-group">
+              <label>City / Location (Optional)</label>
+              <input type="text" id="loginPatientCity" placeholder="e.g. Rohini, Delhi">
+            </div>
+            <button type="submit" class="btn-login-submit btn-login-patient">
+              🩺 Login to Patient Portal ➔
+            </button>
+          </form>
+
+          <div class="quick-demo-box">
+            <div class="quick-demo-title">⚡ 1-Click Quick Demo Login</div>
+            <button class="quick-demo-btn" onclick="quickLogin('patient', 'Ramesh Kumar', '9876543210')">
+              👤 Login as Demo Patient (Ramesh Kumar)
+            </button>
+          </div>
+        </div>
+
+        <!-- 2. VOLUNTEER LOGIN FORM -->
+        <div id="loginPaneVolunteer" class="login-form-pane">
+          <form onsubmit="handleVolunteerLogin(event)">
+            <div class="login-form-group">
+              <label>Select Registered Volunteer or Enter Name *</label>
+              <select id="loginVolunteerSelect" onchange="syncVolunteerNameInput()">
+                <option value="">-- Choose from Registered Volunteers --</option>
+                <!-- Populated dynamically -->
+              </select>
+            </div>
+            <div class="login-form-group">
+              <label>Volunteer Name *</label>
+              <input type="text" id="loginVolunteerName" placeholder="e.g. Dr. Rahul Sharma" required>
+            </div>
+            <div class="login-form-group">
+              <label>Passcode / PIN</label>
+              <input type="password" id="loginVolunteerPin" placeholder="Default: 1234 (Optional)">
+            </div>
+            <button type="submit" class="btn-login-submit">
+              🤝 Login to Volunteer Dashboard ➔
+            </button>
+          </form>
+
+          <div class="quick-demo-box">
+            <div class="quick-demo-title">⚡ 1-Click Quick Demo Login</div>
+            <button class="quick-demo-btn" onclick="quickLogin('volunteer', 'Dr. Rahul Sharma', '9876543210')">
+              👨‍⚕️ Login as Dr. Rahul Sharma (Doctor)
+            </button>
+            <button class="quick-demo-btn" onclick="quickLogin('volunteer', 'Priya Patel', '9812345678')">
+              💉 Login as Priya Patel (Nurse)
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 2. MAIN DASHBOARD INTERFACE (SHOWN AFTER LOGIN)           -->
+  <!-- ======================================================== -->
+  <div id="dashboardSection" class="container">
+    
+    <!-- Top Header Bar -->
+    <header id="mainAppHeader" class="patient-header">
+      <div class="header-top">
+        <div class="user-pill">
+          <span id="userStatusIndicator">🟢</span>
+          <span id="userGreeting">👤 Welcome, User</span>
+        </div>
+        <div class="header-actions">
+          <button class="btn-header" onclick="resetToSampleData()">🔄 Reset Data</button>
+          <button class="btn-header btn-logout" onclick="logoutUser()">🚪 Logout</button>
+        </div>
+      </div>
+      <h1 id="headerTitle">👨‍⚕️ Healthcare Portal</h1>
+      <p id="headerSubtitle">Dedicated healthcare services and assistance.</p>
+    </header>
+
+    <!-- ======================================================== -->
+    <!-- [A] PATIENT ONLY VIEW                                    -->
+    <!-- ======================================================== -->
+    <div id="patientDashboardWrapper" style="display: none;">
+      <!-- Patient Summary Stats -->
+      <div class="summary-bar">
+        <div class="summary-box teal-box">
+          <h3 id="pCountTotal">0</h3>
+          <p>Total Registered Requests</p>
+        </div>
+        <div class="summary-box alert-box">
+          <h3 id="pCountPending">0</h3>
+          <p>Pending Volunteer Assignment</p>
+        </div>
+        <div class="summary-box success-box">
+          <h3 id="pCountAttended">0</h3>
+          <p>Attended / Completed</p>
+        </div>
+      </div>
+
+      <!-- Patient Registration Form Card -->
+      <div class="section-card card-patient">
+        <div class="section-header-row">
+          <h2>🩺 Request Health Assistance</h2>
+          <span class="info-tag">⚡ Live Sync: Requests route instantly to Volunteers</span>
+        </div>
+        <p class="section-guide">
+          Fill in your medical requirement below. When you click <strong>"Submit Assistance Request"</strong>, your request will directly reach the active volunteer doctors and nurses team for immediate assistance.
+        </p>
+
+        <form class="simple-form" onsubmit="registerPatient(event)">
+          <div class="form-group">
+            <label>Patient Full Name *</label>
+            <input type="text" id="pName" placeholder="e.g. Ramesh Kumar" required>
+          </div>
+          <div class="form-group">
+            <label>Age & Gender *</label>
+            <div style="display: flex; gap: 6px;">
+              <input type="number" id="pAge" placeholder="Age" min="1" max="120" style="width: 80px;" required>
+              <select id="pGender" required style="flex: 1;">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Contact Phone Number *</label>
+            <input type="tel" id="pPhone" placeholder="e.g. 9876543210" required>
+          </div>
+          <div class="form-group">
+            <label>City / Location Area *</label>
+            <input type="text" id="pCity" placeholder="e.g. Rohini, Delhi" required>
+          </div>
+          <div class="form-group col-span-2">
+            <label>Health Issue / Symptoms / Help Needed *</label>
+            <input type="text" id="pProblem" placeholder="e.g. High fever, BP checkup, Need blood donor, Post-surgery dressing" required>
+          </div>
+          <div class="form-group">
+            <label>Blood Group (If needed)</label>
+            <select id="pBlood">
+              <option value="Not Needed">Not Needed / Any</option>
+              <option value="O+">O+</option>
+              <option value="O-">O-</option>
+              <option value="A+">A+</option>
+              <option value="A-">A-</option>
+              <option value="B+">B+</option>
+              <option value="B-">B-</option>
+              <option value="AB+">AB+</option>
+              <option value="AB-">AB-</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Urgency Level *</label>
+            <select id="pUrgency" required>
+              <option value="Normal">🟢 Normal (Routine checkup)</option>
+              <option value="Urgent">⚠️ Urgent (Need help within 24 hrs)</option>
+              <option value="Emergency">🚨 Emergency (Immediate attention)</option>
+            </select>
+          </div>
+          <div>
+            <button type="submit" class="btn btn-teal" style="width: 100%;">
+              ➕ Submit Assistance Request
+            </button>
+          </div>
+        </form>
+
+        <!-- Patient's Requests Status Table -->
+        <h3 style="font-size: 16px; margin: 25px 0 10px 0; color: #334155;">
+          📋 Your Registered Requests & Live Status
+        </h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Patient Name</th>
+                <th>Age/Gender</th>
+                <th>Phone</th>
+                <th>Health Issue</th>
+                <th>Urgency</th>
+                <th>Status</th>
+                <th>Assigned Volunteer</th>
+              </tr>
+            </thead>
+            <tbody id="patientTableViewOnly">
+              <!-- Filled by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div id="volunteerDashboardWrapper" style="display: none;">
+      <!-- Volunteer Summary Stats -->
+      <div class="summary-bar">
+        <div class="summary-box">
+          <h3 id="countPatients">0</h3>
+          <p>Total Registered Patients</p>
+        </div>
+        <div class="summary-box alert-box">
+          <h3 id="countPendingPatients">0</h3>
+          <p>Pending Patient Requests</p>
+        </div>
+        <div class="summary-box">
+          <h3 id="countVolunteers">0</h3>
+          <p>Active Volunteers / Doctors</p>
+        </div>
+        <div class="summary-box">
+          <h3 id="countShifts">0</h3>
+          <p>Scheduled Shifts</p>
+        </div>
+        <div class="summary-box success-box">
+          <h3 id="countHours">0</h3>
+          <p>Total Hours Logged</p>
+        </div>
+      </div>
+
+      <!-- 1. LIVE INCOMING PATIENTS IN VOLUNTEER SECTION -->
+      <div class="section-card card-emergency">
+        <div class="section-header-row">
+          <h2>🚨 Live Registered Patients (Incoming Requests Queue)</h2>
+          <span class="info-tag" style="background:#fef2f2; color:#b91c1c; border-color:#fecaca;">
+            📥 Real-time Patient Queue
+          </span>
+        </div>
+        <p class="section-guide">
+          Every patient who registers via the Patient Portal appears here immediately. Review medical issues, assign yourself or an available doctor/volunteer, and update care status.
+        </p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Patient Details</th>
+                <th>Location</th>
+                <th>Health Issue / Need</th>
+                <th>Blood</th>
+                <th>Urgency</th>
+                <th>Status</th>
+                <th>Assigned Volunteer</th>
+                <th>Quick Actions</th>
+              </tr>
+            </thead>
+            <tbody id="volunteerPatientsTableBody">
+              <!-- Filled by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 2. VOLUNTEER REGISTRATION -->
+      <div class="section-card">
+        <div class="section-header-row">
+          <h2>🤝 Register Team Volunteer (Doctor / Nurse / Helper)</h2>
+        </div>
+        <form class="simple-form" onsubmit="registerVolunteer(event)">
+          <div class="form-group">
+            <label>Full Name *</label>
+            <input type="text" id="vName" placeholder="e.g. Dr. Rahul Sharma" required>
+          </div>
+          <div class="form-group">
+            <label>Phone Number *</label>
+            <input type="tel" id="vPhone" placeholder="e.g. 9876543210" required>
+          </div>
+          <div class="form-group">
+            <label>Role *</label>
+            <select id="vRole" required>
+              <option value="Doctor">Doctor</option>
+              <option value="Nurse">Nurse</option>
+              <option value="First Aid Helper">First Aid Helper</option>
+              <option value="General Support">General Support</option>
+              <option value="Ambulance / Driver">Ambulance / Driver</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Blood Group *</label>
+            <select id="vBlood" required>
+              <option value="O+">O+</option>
+              <option value="O-">O-</option>
+              <option value="A+">A+</option>
+              <option value="A-">A-</option>
+              <option value="B+">B+</option>
+              <option value="B-">B-</option>
+              <option value="AB+">AB+</option>
+              <option value="AB-">AB-</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Availability *</label>
+            <select id="vAvailability" required>
+              <option value="Available (Full-time)">Available (Full-time)</option>
+              <option value="Morning Shift (8 AM - 2 PM)">Morning Shift (8 AM - 2 PM)</option>
+              <option value="Evening Shift (2 PM - 8 PM)">Evening Shift (2 PM - 8 PM)</option>
+              <option value="Weekends Only">Weekends Only</option>
+              <option value="Emergency On-Call">Emergency On-Call</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>City / Location *</label>
+            <input type="text" id="vCity" placeholder="e.g. Delhi" required>
+          </div>
+          <button type="submit" class="btn">+ Add Volunteer</button>
+        </form>
+
+        <!-- Volunteer List Table -->
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Role</th>
+                <th>Blood Group</th>
+                <th>Availability</th>
+                <th>City</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="volunteerTableBody">
+              <!-- Filled by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 3. SHIFT SCHEDULING -->
+      <div class="section-card card-shifts">
+        <div class="section-header-row">
+          <h2>📅 Schedule Volunteer Shift / Patient Visit</h2>
+        </div>
+        <form class="simple-form" onsubmit="scheduleShift(event)">
+          <div class="form-group">
+            <label>Health Event / Patient Visit *</label>
+            <input type="text" id="sTitle" placeholder="e.g. Home Visit for Ramesh Kumar / Health Camp" required>
+          </div>
+          <div class="form-group">
+            <label>Date *</label>
+            <input type="date" id="sDate" required>
+          </div>
+          <div class="form-group">
+            <label>Time / Shift *</label>
+            <input type="text" id="sTime" placeholder="e.g. 10 AM - 1 PM" required>
+          </div>
+          <div class="form-group">
+            <label>Assign Volunteer *</label>
+            <select id="sVolunteer" required>
+              <option value="">Select Volunteer...</option>
+            </select>
+          </div>
+          <button type="submit" class="btn">+ Schedule Shift</button>
+        </form>
+
+        <!-- Shift List Table -->
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Camp / Patient Visit</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Assigned Volunteer</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="shiftTableBody">
+              <!-- Filled by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 4. VOLUNTEER TRACKING & HOURS LOG -->
+      <div class="section-card card-hours">
+        <div class="section-header-row">
+          <h2>⏱️ Track Volunteer Work & Hours Log</h2>
+        </div>
+        <form class="simple-form" onsubmit="trackHours(event)">
+          <div class="form-group">
+            <label>Select Volunteer *</label>
+            <select id="tVolunteer" required>
+              <option value="">Select Volunteer...</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Duty / Patient Care Activity *</label>
+            <input type="text" id="tDuty" placeholder="e.g. Attended Ramesh Kumar (BP & Medicine)" required>
+          </div>
+          <div class="form-group">
+            <label>Hours Worked *</label>
+            <input type="number" id="tHours" min="1" max="24" value="3" required>
+          </div>
+          <button type="submit" class="btn">+ Log Hours</button>
+        </form>
+
+        <!-- Hours Tracking Table -->
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Volunteer Name</th>
+                <th>Duty Done</th>
+                <th>Hours Worked</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="trackingTableBody">
+              <!-- Filled by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div> <!-- End volunteerDashboardWrapper -->
+
+  </div> <!-- End dashboardSection -->
+
+  <script>
+    // ==========================================================
+    // 1. DATA STORES (Persisted in localStorage with sample data)
+    // ==========================================================
+
+    const DEFAULT_PATIENTS = [
+      {
+        id: 101,
+        name: "Ramesh Kumar",
+        age: 48,
+        gender: "Male",
+        phone: "9876543210",
+        city: "Rohini, Delhi",
+        problem: "High viral fever & body weakness, needs medicine checkup",
+        blood: "O+",
+        urgency: "Urgent",
+        status: "Pending Volunteer",
+        assignedVolunteer: "",
+        registeredAt: "2026-11-04 10:15 AM"
+      },
+      {
+        id: 102,
+        name: "Sunita Devi",
+        age: 62,
+        gender: "Female",
+        phone: "9811223344",
+        city: "Janakpuri, Delhi",
+        problem: "Severe diabetic foot dressing and blood pressure monitoring",
+        blood: "B+",
+        urgency: "Emergency",
+        status: "Volunteer Assigned",
+        assignedVolunteer: "Dr. Rahul Sharma",
+        registeredAt: "2026-11-04 11:30 AM"
+      }
+    ];
+
+    const DEFAULT_VOLUNTEERS = [
+      { id: 1, name: "Dr. Rahul Sharma", phone: "9876543210", role: "Doctor", blood: "O+", availability: "Morning Shift (8 AM - 2 PM)", city: "Delhi" },
+      { id: 2, name: "Priya Patel", phone: "9812345678", role: "Nurse", blood: "B+", availability: "Available (Full-time)", city: "Mumbai" },
+      { id: 3, name: "Amit Verma", phone: "9898989898", role: "First Aid Helper", blood: "A+", availability: "Weekends Only", city: "Jaipur" }
+    ];
+
+    const DEFAULT_SHIFTS = [
+      { id: 1, title: "Patient Sunita Devi Home Dressing", date: "2026-11-05", time: "10 AM - 12 PM", volunteer: "Dr. Rahul Sharma", status: "Upcoming" },
+      { id: 2, title: "Polio Vaccine Drive", date: "2026-11-12", time: "10 AM - 3 PM", volunteer: "Priya Patel", status: "Completed" }
+    ];
+
+    const DEFAULT_TRACKING = [
+      { id: 1, volunteer: "Dr. Rahul Sharma", duty: "General patient checkups & vitals", hours: 4 },
+      { id: 2, volunteer: "Priya Patel", duty: "Vaccine administration & BP check", hours: 5 }
+    ];
+
+    let patients = JSON.parse(localStorage.getItem('my_patients')) || DEFAULT_PATIENTS;
+    let volunteers = JSON.parse(localStorage.getItem('my_volunteers')) || DEFAULT_VOLUNTEERS;
+    let shifts = JSON.parse(localStorage.getItem('my_shifts')) || DEFAULT_SHIFTS;
+    let trackingLogs = JSON.parse(localStorage.getItem('my_tracking')) || DEFAULT_TRACKING;
+
+    // Save all to localStorage
+    function saveData() {
+      localStorage.setItem('my_patients', JSON.stringify(patients));
+      localStorage.setItem('my_volunteers', JSON.stringify(volunteers));
+      localStorage.setItem('my_shifts', JSON.stringify(shifts));
+      localStorage.setItem('my_tracking', JSON.stringify(trackingLogs));
+      updateCounts();
+      updateDropdowns();
+      populateLoginVolunteerSelect();
+    }
+
+    // ==========================================================
+    // 2. AUTHENTICATION & ROLE-SPECIFIC DASHBOARD ROUTING
+    // ==========================================================
+
+    // Keep active auth in memory only so going back, reloading, or reopening always asks to re-login
+    let currentUser = null;
+
+    function resetLoginForms() {
+      const fieldIds = [
+        'loginPatientName',
+        'loginPatientPhone',
+        'loginPatientCity',
+        'loginVolunteerSelect',
+        'loginVolunteerName',
+        'loginVolunteerPin'
+      ];
+      fieldIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = '';
+      });
+    }
+
+    function clearUrlDashboardHash() {
+      try {
+        const cleanUrl = window.location.href.split('#')[0];
+        history.replaceState({ loggedIn: false }, '', cleanUrl);
+      } catch (e) {
+        if (window.location.hash) {
+          window.location.hash = '';
+        }
+      }
+    }
+
+    function forceRelogin(message = "Please login again to continue.") {
+      const wasLoggedIn = Boolean(currentUser);
+      currentUser = null;
+      localStorage.removeItem('health_logged_user');
+      resetLoginForms();
+      clearUrlDashboardHash();
+      checkAuthState();
+      if (wasLoggedIn && message) {
+        showToast(message, "🔒");
+      }
+    }
+
+    function checkAuthState() {
+      const loggedUser = currentUser;
+      const loginSection = document.getElementById('loginSection');
+      const dashboardSection = document.getElementById('dashboardSection');
+      const pWrapper = document.getElementById('patientDashboardWrapper');
+      const vWrapper = document.getElementById('volunteerDashboardWrapper');
+      const headerEl = document.getElementById('mainAppHeader');
+      const greetingEl = document.getElementById('userGreeting');
+      const headerTitle = document.getElementById('headerTitle');
+      const headerSubtitle = document.getElementById('headerSubtitle');
+
+      // If no valid user, show login screen
+      if (!loggedUser || (loggedUser.role !== 'patient' && loggedUser.role !== 'volunteer')) {
+        loginSection.style.display = 'flex';
+        dashboardSection.style.display = 'none';
+        pWrapper.style.display = 'none';
+        vWrapper.style.display = 'none';
+        populateLoginVolunteerSelect();
+        return;
+      }
+
+      // Hide Login, Show Dashboard
+      loginSection.style.display = 'none';
+      dashboardSection.style.display = 'block';
+
+      if (loggedUser.role === 'patient') {
+        // [PATIENT LOGGED IN] Show ONLY Patient Dashboard
+        pWrapper.style.display = 'block';
+        vWrapper.style.display = 'none';
+
+        headerEl.className = 'patient-header';
+        greetingEl.textContent = `👤 Welcome, ${loggedUser.name} (Patient)`;
+        headerTitle.textContent = `🩺 Patient Health Assistance Portal`;
+        headerSubtitle.textContent = `Register your medical assistance requests and track real-time updates from our volunteer medical team.`;
+
+        // Auto-fill logged patient's details
+        const nameInput = document.getElementById('pName');
+        const phoneInput = document.getElementById('pPhone');
+        const cityInput = document.getElementById('pCity');
+        if (nameInput) nameInput.value = loggedUser.name || '';
+        if (phoneInput) phoneInput.value = loggedUser.phone || '';
+        if (cityInput && loggedUser.city) cityInput.value = loggedUser.city || '';
+
+      } else if (loggedUser.role === 'volunteer') {
+        // [VOLUNTEER LOGGED IN] Show ONLY Volunteer Dashboard
+        pWrapper.style.display = 'none';
+        vWrapper.style.display = 'block';
+
+        headerEl.className = 'volunteer-header';
+        greetingEl.textContent = `👤 Welcome, ${loggedUser.name} (Volunteer / Doctor)`;
+        headerTitle.textContent = `👨‍⚕️ Volunteer Healthcare & Operations Dashboard`;
+        headerSubtitle.textContent = `Review incoming patient requests, assign care teams, schedule camps/shifts, and log service hours.`;
+      }
+
+      renderAll();
+    }
+
+    function switchLoginRole(role) {
+      const btnP = document.getElementById('roleBtnPatient');
+      const btnV = document.getElementById('roleBtnVolunteer');
+      const paneP = document.getElementById('loginPanePatient');
+      const paneV = document.getElementById('loginPaneVolunteer');
+
+      if (role === 'patient') {
+        btnP.classList.add('active');
+        btnV.classList.remove('active');
+        paneP.classList.add('active');
+        paneV.classList.remove('active');
+      } else {
+        btnV.classList.add('active');
+        btnP.classList.remove('active');
+        paneV.classList.add('active');
+        paneP.classList.remove('active');
+      }
+    }
+
+    function populateLoginVolunteerSelect() {
+      const select = document.getElementById('loginVolunteerSelect');
+      if (!select) return;
+
+      let html = '<option value="">-- Choose from Registered Volunteers --</option>';
+      volunteers.forEach(v => {
+        html += `<option value="${v.name}">${v.name} (${v.role})</option>`;
+      });
+      select.innerHTML = html;
+    }
+
+    function syncVolunteerNameInput() {
+      const select = document.getElementById('loginVolunteerSelect');
+      const nameInput = document.getElementById('loginVolunteerName');
+      if (select && select.value) {
+        nameInput.value = select.value;
+      }
+    }
+
+    function completeLogin(userSession, toastMessage, toastIcon = "🚀") {
+      currentUser = userSession;
+      try {
+        history.pushState({ loggedIn: true, role: userSession.role }, '', '#dashboard');
+      } catch (e) {
+        window.location.hash = 'dashboard';
+      }
+      showToast(toastMessage, toastIcon);
+      checkAuthState();
+    }
+
+    function handlePatientLogin(event) {
+      event.preventDefault();
+      const name = document.getElementById('loginPatientName').value.trim();
+      const phone = document.getElementById('loginPatientPhone').value.trim();
+      const city = document.getElementById('loginPatientCity').value.trim();
+
+      const userSession = {
+        name: name,
+        phone: phone,
+        city: city,
+        role: 'patient',
+        loginTime: new Date().toLocaleTimeString()
+      };
+
+      completeLogin(userSession, `Welcome, ${name}! Opening Patient Portal...`, "🩺");
+    }
+
+    function handleVolunteerLogin(event) {
+      event.preventDefault();
+      const name = document.getElementById('loginVolunteerName').value.trim();
+      if (!name) {
+        alert("Please enter or select a volunteer name.");
+        return;
+      }
+
+      const userSession = {
+        name: name,
+        role: 'volunteer',
+        loginTime: new Date().toLocaleTimeString()
+      };
+
+      completeLogin(userSession, `Welcome, ${name}! Opening Volunteer Dashboard...`, "🤝");
+    }
+
+    function quickLogin(role, name, phone = "9876543210") {
+      const userSession = {
+        name: name,
+        role: role,
+        phone: phone,
+        loginTime: new Date().toLocaleTimeString()
+      };
+
+      completeLogin(userSession, `Logged in as ${name}!`, "🚀");
+    }
+
+    function logoutUser() {
+      currentUser = null;
+      localStorage.removeItem('health_logged_user');
+      resetLoginForms();
+      clearUrlDashboardHash();
+      showToast("Logged out successfully.", "🚪");
+      checkAuthState();
+    }
+
+    // ==========================================================
+    // 3. TOAST NOTIFICATION
+    // ==========================================================
+    function showToast(message, icon = "✅") {
+      const toast = document.getElementById('liveToast');
+      document.getElementById('toastMsg').textContent = message;
+      document.getElementById('toastIcon').textContent = icon;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3800);
+    }
+
+    // ==========================================================
+    // 4. SUMMARY COUNTS & DROPDOWNS
+    // ==========================================================
+    function updateCounts() {
+      const totalPatients = patients.length;
+      const pendingCount = patients.filter(p => p.status !== 'Completed' && p.status !== 'Attended').length;
+      const attendedCount = totalPatients - pendingCount;
+
+      // Patient view stats
+      const pCountTotal = document.getElementById('pCountTotal');
+      const pCountPending = document.getElementById('pCountPending');
+      const pCountAttended = document.getElementById('pCountAttended');
+      if (pCountTotal) pCountTotal.textContent = totalPatients;
+      if (pCountPending) pCountPending.textContent = pendingCount;
+      if (pCountAttended) pCountAttended.textContent = attendedCount;
+
+      // Volunteer view stats
+      const countPatients = document.getElementById('countPatients');
+      const countPendingPatients = document.getElementById('countPendingPatients');
+      const countVolunteers = document.getElementById('countVolunteers');
+      const countShifts = document.getElementById('countShifts');
+      const countHours = document.getElementById('countHours');
+
+      if (countPatients) countPatients.textContent = totalPatients;
+      if (countPendingPatients) countPendingPatients.textContent = pendingCount;
+      if (countVolunteers) countVolunteers.textContent = volunteers.length;
+      if (countShifts) countShifts.textContent = shifts.length;
+
+      let totalHrs = trackingLogs.reduce((sum, item) => sum + Number(item.hours), 0);
+      if (countHours) countHours.textContent = totalHrs;
+    }
+
+    function updateDropdowns() {
+      const shiftSelect = document.getElementById('sVolunteer');
+      const trackSelect = document.getElementById('tVolunteer');
+
+      let options = '<option value="">Select Volunteer...</option>';
+      volunteers.forEach(v => {
+        const b = v.blood ? `🩸 ${v.blood}` : '';
+        const a = v.availability ? `🕒 ${v.availability}` : '';
+        options += `<option value="${v.name}">${v.name} (${v.role} | ${b} | ${a})</option>`;
+      });
+
+      if (shiftSelect) shiftSelect.innerHTML = options;
+      if (trackSelect) trackSelect.innerHTML = options;
+    }
+
+    // ==========================================================
+    // 5. PATIENT REGISTRATION (DATA DIRECTLY ROUTES TO VOLUNTEERS)
+    // ==========================================================
+    function registerPatient(event) {
+      event.preventDefault();
+
+      const name = document.getElementById('pName').value.trim();
+      const age = document.getElementById('pAge').value;
+      const gender = document.getElementById('pGender').value;
+      const phone = document.getElementById('pPhone').value.trim();
+      const city = document.getElementById('pCity').value.trim();
+      const problem = document.getElementById('pProblem').value.trim();
+      const blood = document.getElementById('pBlood').value;
+      const urgency = document.getElementById('pUrgency').value;
+
+      const newPatient = {
+        id: Date.now(),
+        name: name,
+        age: Number(age),
+        gender: gender,
+        phone: phone,
+        city: city,
+        problem: problem,
+        blood: blood,
+        urgency: urgency,
+        status: "Pending Volunteer",
+        assignedVolunteer: "",
+        registeredAt: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + ', ' + new Date().toLocaleDateString()
+      };
+
+      // Add patient directly into store
+      patients.unshift(newPatient); // latest first
+      saveData();
+
+      // Render updated lists
+      renderPatients();
+      renderVolunteerPatients();
+
+      // Clear the medical problem field (keep name/phone for convenience)
+      document.getElementById('pProblem').value = '';
+
+      showToast(`Assistance request registered for "${name}"! Forwarded directly to Volunteers team.`, "🚀");
+    }
+
+    // Render Patient's Own Status Table
+    function renderPatients() {
+      const tbody = document.getElementById('patientTableViewOnly');
+      if (!tbody) return;
+
+      if (patients.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="8" class="empty-msg">No assistance requests found. Fill the form above to submit your request.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = patients.map((p, index) => {
+        let urgencyBadge = '<span class="badge badge-green">Normal</span>';
+        if (p.urgency === 'Emergency') {
+          urgencyBadge = '<span class="badge badge-red pulse">🚨 Emergency</span>';
+        } else if (p.urgency === 'Urgent') {
+          urgencyBadge = '<span class="badge badge-yellow">⚠️ Urgent</span>';
+        }
+
+        let statusBadge = '<span class="badge badge-yellow">⏳ Pending Volunteer</span>';
+        if (p.status === 'Volunteer Assigned') {
+          statusBadge = '<span class="badge badge-blue">🧑‍⚕️ Volunteer Assigned</span>';
+        } else if (p.status === 'Attended' || p.status === 'Completed') {
+          statusBadge = '<span class="badge badge-green">✅ Attended</span>';
+        }
+
+        return `
+          <tr>
+            <td>${index + 1}</td>
+            <td><strong>${p.name}</strong><br><small style="color:#64748b;">${p.registeredAt || ''}</small></td>
+            <td>${p.age} yrs (${p.gender})</td>
+            <td>📞 ${p.phone}</td>
+            <td>${p.problem}</td>
+            <td>${urgencyBadge}</td>
+            <td>${statusBadge}</td>
+            <td>${p.assignedVolunteer ? `<strong style="color:#0284c7;">${p.assignedVolunteer}</strong>` : '<em style="color:#94a3b8;">Waiting for Volunteer</em>'}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // Render Incoming Patients in the VOLUNTEER SECTION
+    function renderVolunteerPatients() {
+      const tbody = document.getElementById('volunteerPatientsTableBody');
+      if (!tbody) return;
+
+      if (patients.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="9" class="empty-msg">No patient requests in queue. Registered patients will appear here automatically!</td></tr>`;
+        return;
+      }
+
+      // Build volunteer dropdown options for quick assignment
+      const volunteerOptions = volunteers.map(v => `<option value="${v.name}">${v.name} (${v.role})</option>`).join('');
+
+      tbody.innerHTML = patients.map((p, index) => {
+        let urgencyBadge = '<span class="badge badge-green">Normal</span>';
+        if (p.urgency === 'Emergency') {
+          urgencyBadge = '<span class="badge badge-red pulse">🚨 Emergency</span>';
+        } else if (p.urgency === 'Urgent') {
+          urgencyBadge = '<span class="badge badge-yellow">⚠️ Urgent</span>';
+        }
+
+        let statusBadge = '<span class="badge badge-yellow">⏳ Pending</span>';
+        if (p.status === 'Volunteer Assigned') {
+          statusBadge = '<span class="badge badge-blue">🧑‍⚕️ Assigned</span>';
+        } else if (p.status === 'Attended' || p.status === 'Completed') {
+          statusBadge = '<span class="badge badge-green">✅ Attended</span>';
+        }
+
+        const isDone = p.status === 'Attended' || p.status === 'Completed';
+
+        return `
+          <tr>
+            <td>${index + 1}</td>
+            <td>
+              <strong>${p.name}</strong> (${p.age}y, ${p.gender})<br>
+              <small>📞 ${p.phone}</small>
+            </td>
+            <td>📍 ${p.city}</td>
+            <td style="max-width: 200px;">${p.problem}</td>
+            <td><span class="badge badge-teal">🩸 ${p.blood || 'Any'}</span></td>
+            <td>${urgencyBadge}</td>
+            <td>${statusBadge}</td>
+            <td>
+              ${p.assignedVolunteer ? `<strong style="color:#0369a1;">${p.assignedVolunteer}</strong>` : '<span style="color:#ef4444; font-weight:600;">⚠️ Waiting</span>'}
+              <div style="margin-top: 4px;">
+                <select class="assign-select" id="assignSelect_${p.id}">
+                  <option value="">Assign to...</option>
+                  ${volunteerOptions}
+                </select>
+                <button class="btn btn-assign" onclick="assignVolunteer(${p.id})">Assign</button>
+              </div>
+            </td>
+            <td>
+              <div class="action-cell">
+                <button class="btn btn-status" onclick="togglePatientAttended(${p.id})">
+                  ${isDone ? 'Mark Pending' : 'Mark Attended'}
+                </button>
+                <button class="btn btn-danger" onclick="deletePatient(${p.id})">Delete</button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // Assign Volunteer to Patient
+    function assignVolunteer(patientId) {
+      const selectEl = document.getElementById(`assignSelect_${patientId}`);
+      const selectedVol = selectEl.value;
+
+      if (!selectedVol) {
+        alert("Please select a volunteer from the dropdown to assign!");
+        return;
+      }
+
+      const patient = patients.find(p => p.id === patientId);
+      if (patient) {
+        patient.assignedVolunteer = selectedVol;
+        if (patient.status !== 'Attended') {
+          patient.status = 'Volunteer Assigned';
+        }
+        saveData();
+        renderPatients();
+        renderVolunteerPatients();
+        showToast(`${selectedVol} assigned to patient ${patient.name}!`, "🤝");
+      }
+    }
+
+    // Toggle Patient Attended / Pending
+    function togglePatientAttended(patientId) {
+      const patient = patients.find(p => p.id === patientId);
+      if (patient) {
+        if (patient.status === 'Attended' || patient.status === 'Completed') {
+          patient.status = patient.assignedVolunteer ? 'Volunteer Assigned' : 'Pending Volunteer';
+        } else {
+          patient.status = 'Attended';
+        }
+        saveData();
+        renderPatients();
+        renderVolunteerPatients();
+        showToast(`Patient status updated for ${patient.name}!`, "✅");
+      }
+    }
+
+    // Delete Patient Request
+    function deletePatient(patientId) {
+      if (confirm("Are you sure you want to remove this patient request?")) {
+        patients = patients.filter(p => p.id !== patientId);
+        saveData();
+        renderPatients();
+        renderVolunteerPatients();
+        showToast("Patient record removed.", "🗑️");
+      }
+    }
+
+    // ==========================================================
+    // 6. VOLUNTEER REGISTRATION & MANAGEMENT
+    // ==========================================================
+    function registerVolunteer(event) {
+      event.preventDefault();
+      const name = document.getElementById('vName').value.trim();
+      const phone = document.getElementById('vPhone').value.trim();
+      const role = document.getElementById('vRole').value;
+      const blood = document.getElementById('vBlood').value;
+      const availability = document.getElementById('vAvailability').value;
+      const city = document.getElementById('vCity').value.trim();
+
+      const newVol = {
+        id: Date.now(),
+        name: name,
+        phone: phone,
+        role: role,
+        blood: blood,
+        availability: availability,
+        city: city
+      };
+
+      volunteers.push(newVol);
+      saveData();
+      renderVolunteers();
+      renderVolunteerPatients(); // Refresh assignment dropdowns in patient table
+      event.target.reset();
+      showToast(`Volunteer ${name} (${role}) registered!`, "🩺");
+    }
+
+    function renderVolunteers() {
+      const tbody = document.getElementById('volunteerTableBody');
+      if (!tbody) return;
+
+      if (volunteers.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="8" class="empty-msg">No volunteers registered yet.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = volunteers.map((v, index) => `
+        <tr>
+          <td>${index + 1}</td>
+          <td><strong>${v.name}</strong></td>
+          <td>${v.phone}</td>
+          <td><span class="badge badge-blue">${v.role}</span></td>
+          <td><span class="badge badge-red">🩸 ${v.blood || 'O+'}</span></td>
+          <td><span class="badge badge-purple">🕒 ${v.availability || 'Available'}</span></td>
+          <td>${v.city}</td>
+          <td>
+            <button class="btn btn-danger" onclick="deleteVolunteer(${v.id})">Delete</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function deleteVolunteer(id) {
+      if (confirm("Are you sure you want to delete this volunteer?")) {
+        volunteers = volunteers.filter(v => v.id !== id);
+        saveData();
+        renderVolunteers();
+        renderVolunteerPatients();
+        showToast("Volunteer deleted.", "🗑️");
+      }
+    }
+
+    // ==========================================================
+    // 7. SHIFT SCHEDULING
+    // ==========================================================
+    function scheduleShift(event) {
+      event.preventDefault();
+      const title = document.getElementById('sTitle').value.trim();
+      const date = document.getElementById('sDate').value;
+      const time = document.getElementById('sTime').value.trim();
+      const volunteer = document.getElementById('sVolunteer').value;
+
+      const newShift = {
+        id: Date.now(),
+        title: title,
+        date: date,
+        time: time,
+        volunteer: volunteer,
+        status: "Upcoming"
+      };
+
+      shifts.push(newShift);
+      saveData();
+      renderShifts();
+      event.target.reset();
+      showToast("Shift scheduled successfully!", "📅");
+    }
+
+    function renderShifts() {
+      const tbody = document.getElementById('shiftTableBody');
+      if (!tbody) return;
+
+      if (shifts.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" class="empty-msg">No shifts scheduled yet.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = shifts.map((s, index) => {
+        const isCompleted = s.status === "Completed";
+        return `
+          <tr>
+            <td>${index + 1}</td>
+            <td><strong>${s.title}</strong></td>
+            <td>${s.date}</td>
+            <td>${s.time}</td>
+            <td><strong>${s.volunteer}</strong></td>
+            <td>
+              <span class="badge ${isCompleted ? 'badge-green' : 'badge-yellow'}">
+                ${s.status}
+              </span>
+            </td>
+            <td>
+              <button class="btn btn-status" onclick="toggleShiftStatus(${s.id})">
+                ${isCompleted ? 'Mark Upcoming' : 'Mark Done'}
+              </button>
+              <button class="btn btn-danger" onclick="deleteShift(${s.id})">Delete</button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function toggleShiftStatus(id) {
+      const shift = shifts.find(s => s.id === id);
+      if (shift) {
+        shift.status = shift.status === "Completed" ? "Upcoming" : "Completed";
+        saveData();
+        renderShifts();
+      }
+    }
+
+    function deleteShift(id) {
+      if (confirm("Delete this scheduled shift?")) {
+        shifts = shifts.filter(s => s.id !== id);
+        saveData();
+        renderShifts();
+      }
+    }
+
+    // ==========================================================
+    // 8. TRACKING FUNCTIONS
+    // ==========================================================
+    function trackHours(event) {
+      event.preventDefault();
+      const volunteer = document.getElementById('tVolunteer').value;
+      const duty = document.getElementById('tDuty').value.trim();
+      const hours = document.getElementById('tHours').value;
+
+      const newLog = {
+        id: Date.now(),
+        volunteer: volunteer,
+        duty: duty,
+        hours: Number(hours)
+      };
+
+      trackingLogs.push(newLog);
+      saveData();
+      renderTracking();
+      event.target.reset();
+      showToast("Work hours recorded!", "⏱️");
+    }
+
+    function renderTracking() {
+      const tbody = document.getElementById('trackingTableBody');
+      if (!tbody) return;
+
+      if (trackingLogs.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" class="empty-msg">No work logged yet.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = trackingLogs.map((t, index) => `
+        <tr>
+          <td>${index + 1}</td>
+          <td><strong>${t.volunteer}</strong></td>
+          <td>${t.duty}</td>
+          <td><strong>${t.hours} hrs</strong></td>
+          <td>
+            <button class="btn btn-danger" onclick="deleteTracking(${t.id})">Delete</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function deleteTracking(id) {
+      if (confirm("Delete this tracked log?")) {
+        trackingLogs = trackingLogs.filter(t => t.id !== id);
+        saveData();
+        renderTracking();
+      }
+    }
+
+    // ==========================================================
+    // 9. UTILITIES (Sample Data / Clear Data)
+    // ==========================================================
+    function resetToSampleData() {
+      if (confirm("Reset everything to sample patient and volunteer records?")) {
+        patients = [...DEFAULT_PATIENTS];
+        volunteers = [...DEFAULT_VOLUNTEERS];
+        shifts = [...DEFAULT_SHIFTS];
+        trackingLogs = [...DEFAULT_TRACKING];
+        saveData();
+        renderAll();
+        showToast("Sample data restored successfully!", "🔄");
+      }
+    }
+
+    function renderAll() {
+      updateCounts();
+      updateDropdowns();
+      renderPatients();
+      renderVolunteerPatients();
+      renderVolunteers();
+      renderShifts();
+      renderTracking();
+    }
+
+    // ==========================================================
+    // 10. INITIALIZATION & BACK-BUTTON RE-LOGIN HANDLING
+    // ==========================================================
+    window.addEventListener('popstate', function() {
+      if (currentUser) {
+        forceRelogin("Session ended on going back. Please login again.");
+      } else if (window.location.hash === '#dashboard') {
+        clearUrlDashboardHash();
+        checkAuthState();
+        showToast("Please login again to access the dashboard.", "🔒");
+      }
+    });
+
+    window.addEventListener('hashchange', function() {
+      if (currentUser && window.location.hash !== '#dashboard') {
+        forceRelogin("Session ended on going back. Please login again.");
+      } else if (!currentUser && window.location.hash === '#dashboard') {
+        clearUrlDashboardHash();
+        checkAuthState();
+        showToast("Please login again to access the dashboard.", "🔒");
+      }
+    });
+
+    window.addEventListener('pageshow', function(event) {
+      if (event.persisted) {
+        if (currentUser) {
+          forceRelogin("Welcome back! Please login again.");
+        } else {
+          clearUrlDashboardHash();
+          checkAuthState();
+        }
+      }
+    });
+
+    window.onload = function() {
+      // Clear any saved login session so opening/reloading/going back always asks to login again
+      localStorage.removeItem('health_logged_user');
+      currentUser = null;
+      clearUrlDashboardHash();
+      checkAuthState();
+    };
+  </script>
+</body>
+</html>
